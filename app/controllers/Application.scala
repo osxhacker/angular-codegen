@@ -4,7 +4,14 @@ import play.api._
 import play.api.mvc._
 
 
-object Application extends Controller
+/**
+ * The '''Application''' type defines the entry point for the system.
+ * 
+ * @author svickers
+ * 
+ */
+object Application
+	extends Controller
 {
 	/// Class Imports
 	import views.html.partials
@@ -15,9 +22,9 @@ object Application extends Controller
 		Ok (partials.summary ());
 		}
 
+
 	def detail = Action {
         /// TODO: serve up a detail Atom
 		Ok (partials.detail ());
 		}
 }
-
