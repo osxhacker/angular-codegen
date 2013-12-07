@@ -20,3 +20,10 @@ final case class Author (
 {
 
 }
+
+
+object Author
+{
+	def apply (name : String) : Author =
+		new Author (name, None, None);
+}

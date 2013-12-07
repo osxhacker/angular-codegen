@@ -6,8 +6,9 @@
 GET     /                           controllers.Assets.at(path="/public", file="index.html")
 
 # Map AngularJS snippets to controller methods
+GET     /partials/available.html    controllers.Application.available()
+GET     /partials/detail.html       controllers.Application.detail()
 GET     /partials/summary.html      controllers.Application.summary()
-GET     /partials/detail.html      controllers.Application.detail()
 
 # Map JavaScript resources to /javascripts
 GET     /javascripts/*file          controllers.Assets.at(path = "/public/javascripts", file)

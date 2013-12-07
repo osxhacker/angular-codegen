@@ -20,7 +20,7 @@ import scalaz.{
  */
 final case class Feed (
 	val id : URI,
-	val author : NonEmptyList[Author],
+	val authors : NonEmptyList[Author],
 	val title : String,
 	val updated : Date,
 	val link : List[Link],

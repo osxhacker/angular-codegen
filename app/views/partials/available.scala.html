@@ -1,0 +1,24 @@
+@(feeds: List[_root_.models.atom.Feed])
+
+@import _root_.java.util.Date
+@import _root_.java.text.SimpleDateFormat
+
+@formatted(date: Date) = @{
+	new SimpleDateFormat ("yyyy-MM-dd'T'HH:mm:ss.SSSZ").format (date);
+}
+
+<feeds>
+	@for(feed <- feeds) {
+		<feed xmlns="http://www.w3.org/2005/Atom">
+			<title type="text">@feed.title</title>
+			<updated>@formatted(feed.updated)</updated>
+			<id>@feed.id</id>
+			
+			@for(author <- feed.authors.list) {
+			<author>
+				<name>@author.name</name>
+			</author>
+			}
+		</feed>
+	}
+</feeds>
