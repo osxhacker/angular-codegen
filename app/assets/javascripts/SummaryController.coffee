@@ -6,11 +6,11 @@
 'use strict'
 
 
-class SummaryController
+class Controller.SummaryController
   constructor: (@$scope) ->
 
 
 angular
-  .module('AtomReader.controllers', [])
-  .controller('SummaryController', SummaryController)
+  .module('AtomReader.controllers')
+  .controller('SummaryController', Controller.SummaryController)
 

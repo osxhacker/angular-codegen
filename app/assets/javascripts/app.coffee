@@ -6,22 +6,26 @@
 angular
   .module('AtomReader', [
     'ngRoute',
-    'AtomReader.filters',
-    'AtomReader.services',
+    'AtomReader.controllers',
     'AtomReader.directives',
-    'AtomReader.controllers'
-    ]).
-  config([ '$routeProvider', ($routeProvider) ->
-    $routeProvider.when('/summary',
+    'AtomReader.filters',
+    'AtomReader.services'
+  ])
+  .config([ '$routeProvider', ($routeProvider) ->
+    $routeProvider.when '/available',
+      templateUrl: 'partials/available.html'
+      controller: 'Controller.AvailableController'
+
+    $routeProvider.when '/summary',
       templateUrl: 'partials/summary.html'
-      controller: 'SummaryController'
-    )
-    $routeProvider.when('/detail',
+      controller: 'Controller.SummaryController'
+
+    $routeProvider.when '/detail',
       templateUrl: 'partials/detail.html'
-      controller: 'DetailController'
-    )
-    $routeProvider.otherwise(
-      redirectTo: '/summary'
-    )
+      controller: 'Controller.DetailController'
+
+    $routeProvider.otherwise redirectTo: '/available'
+
+    @
   ])
 

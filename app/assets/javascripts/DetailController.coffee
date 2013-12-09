@@ -6,11 +6,11 @@
 'use strict'
 
 
-class DetailController
+class Controller.DetailController
   constructor: (@$scope) ->
 
 
 angular
-  .module('AtomReader.controllers', [])
-  .controller('DetailController', DetailController)
+  .module('AtomReader.controllers')
+  .controller('DetailController', Controller.DetailController)
 
