@@ -1,7 +1,7 @@
 /**
  * Created on: Dec 7, 2013
  */
-package models.atom
+package com.iteamsolutions.angular.models.atom
 
 
 /**
@@ -27,3 +27,4 @@ object Author
 	def apply (name : String) : Author =
 		new Author (name, None, None);
 }
+

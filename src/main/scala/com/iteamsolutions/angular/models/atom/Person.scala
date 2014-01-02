@@ -1,7 +1,7 @@
 /**
  * Created on: Dec 7, 2013
  */
-package models.atom
+package com.iteamsolutions.angular.models.atom
 
 
 /**
@@ -18,3 +18,4 @@ trait Person
 	def uri : Option[URI];
 	def email : Option[URI];
 }
+

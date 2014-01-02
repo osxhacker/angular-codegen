@@ -1,7 +1,7 @@
 /**
  * Created on: Dec 7, 2013
  */
-package models
+package com.iteamsolutions.angular.models
 
 
 /**
@@ -18,3 +18,4 @@ package object atom
 	type URI = java.net.URI
 	type URISyntaxException = java.net.URISyntaxException
 }
+

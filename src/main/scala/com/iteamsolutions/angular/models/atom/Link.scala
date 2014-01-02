@@ -1,7 +1,7 @@
 /**
  * Created on: Dec 7, 2013
  */
-package models.atom
+package com.iteamsolutions.angular.models.atom
 
 import scalaz.{
 	Failure => _,
@@ -30,3 +30,4 @@ final case class Link (
 object Link
 {
 }
+

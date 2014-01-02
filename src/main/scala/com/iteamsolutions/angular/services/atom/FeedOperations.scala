@@ -1,7 +1,7 @@
 /**
  * Created on: Dec 7, 2013
  */
-package services.atom
+package com.iteamsolutions.angular.services.atom
 
 import scalaz.{
 	Failure => _,
@@ -9,7 +9,7 @@ import scalaz.{
 	_
 	}
 	
-import models.atom._
+import com.iteamsolutions.angular.models.atom._
 
 
 /**
@@ -49,3 +49,4 @@ trait FeedOperations
 		feeds.right;
 	}
 }
+
