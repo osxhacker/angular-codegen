@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en" ng-app="AtomReader">
+<head>
+	<meta charset="utf-8">
+	<title>My AngularJS App</title>
+	<link rel="stylesheet" href="stylesheets/app.css"/>
+
+	<script src="js/lib/angular/angular.js"></script>
+	<script src="js/lib/angular/angular-route.js"></script>
+
+	<script src="js/modules.js"></script>
+
+	<script src="js/app.js"></script>
+	<script src="js/services.js"></script>
+	<script src="js/filters.js"></script>
+	<script src="js/directives.js"></script>
+
+	<script src="js/FeedDirectives.js"></script>
+	<script src="js/AvailableController.js"></script>
+	<script src="js/DetailController.js"></script>
+	<script src="js/SummaryController.js"></script>
+</head>
+<body>
+	<ul class="menu">
+		<li>
+			<a href="#/summary">summary</a>
+		</li>
+	</ul>
+
+	<div ng-view>
+	</div>
+
+	<div>Angular seed app: v<span app-version></span></div>
+	<foo></foo>
+</body>
+</html>

@@ -15,3 +15,7 @@ addSbtPlugin("com.typesafe.sbteclipse" % "sbteclipse-plugin" % "2.3.0")
 
 addSbtPlugin("me.lessis" % "coffeescripted-sbt" % "0.2.3")
 
+addSbtPlugin("com.mojolly.scalate" % "xsbt-scalate-generator" % "0.4.2")
+
+addSbtPlugin("com.typesafe.sbt" % "sbt-start-script" % "0.10.0")
+
