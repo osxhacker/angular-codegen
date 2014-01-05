@@ -28,12 +28,10 @@ object CommandLineServer
 	implicit val system = ActorSystem ("angular-codegen");
 	implicit val timeout = Timeout (5 seconds);
 	
-	val router = system.actorOf (ApplicationHttpService (), "request-router");
-	
 	
 	/// Constructor Body
 	IO (Http) ? Http.Bind (
-		router,
+		ApplicationHttpService ("request-router"),
 		interface = "localhost",
 		port = 9000
 		);

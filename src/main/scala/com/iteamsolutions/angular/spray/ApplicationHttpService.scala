@@ -3,9 +3,6 @@
  */
 package com.iteamsolutions.angular.spray
 
-import scala.concurrent.Future
-import scala.concurrent.duration.Deadline
-
 import akka.actor.{
 	IO => _,
 	_
@@ -16,7 +13,8 @@ import spray.routing._
 
 
 /**
- * The '''ApplicationHttpService''' type
+ * The '''ApplicationHttpService''' type serves as the Spray route definition
+ * `Actor`, bringing together the externally available REST functionality.
  *
  * @author svickers
  *
@@ -31,5 +29,12 @@ class ApplicationHttpService ()
 
 object ApplicationHttpService
 {
-	def apply () = Props[ApplicationHttpService];
+	/**
+	 * The apply method is provided so that the details of how to instantiate
+	 * an '''ApplicationHttpService''' instance is insulated from clients.
+	 */
+	def apply (name : String)
+		(implicit factory : ActorRefFactory)
+		: ActorRef =
+		factory.actorOf (Props[ApplicationHttpService], name);
 }
