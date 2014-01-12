@@ -6,12 +6,17 @@
 'use strict'
 
 
-class Controller.AvailableController
+class AvailableController
   constructor: (@$scope) ->
     console.log 'made AvailableController'
 
 
-angular
-  .module('AtomReader.controllers')
-  .controller('AvailableController', Controller.AvailableController)
+define [
+  'app/atom.angular'
+  'app/modules'
+  ],
+  (bundled) ->
+    bundled.angular
+      .module('AtomReader.controllers')
+      .controller('AvailableController', AvailableController)
 
