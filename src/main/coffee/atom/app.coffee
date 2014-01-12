@@ -10,7 +10,5 @@ define [
   'app/modules'
   ],
   (bundled) ->
-    console.log 'angular bundled: ', bundled
-
     bundled.angular.module 'AtomReader'
 

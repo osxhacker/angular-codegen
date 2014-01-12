@@ -12,8 +12,6 @@ define [
   'controller/AvailableController'
   ],
   (app) ->
-    console.log 'defining routes'
-
     app.config [ '$routeProvider',
       ($routeProvider) ->
         $routeProvider.when '/available',

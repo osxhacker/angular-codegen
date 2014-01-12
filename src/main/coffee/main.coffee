@@ -41,8 +41,5 @@ requirejs [
   'app/routes'
   ],
   ($, angular, routes) ->
-    $ ->
-      console.log 'bootstrapping AtomReader'
-      angular.bootstrap document, [ 'AtomReader' ]
-
+    $ -> angular.bootstrap document, [ 'AtomReader' ]
 

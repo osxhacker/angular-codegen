@@ -10,8 +10,6 @@ define [
   'exports',
   ],
   (a, exports) ->
-    console.log 'defining modules'
-
     exports.Controller = {}
     exports.Directive = {}
 

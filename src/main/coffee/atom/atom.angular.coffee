@@ -9,8 +9,6 @@
 
 
 define (require) ->
-  console.log 'defining atom.angular'
-
   angular: require 'angular'
   animate: require 'angular.animate'
   resource: require 'angular.resource'
