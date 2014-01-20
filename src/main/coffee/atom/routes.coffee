@@ -16,15 +16,15 @@ define [
       ($routeProvider) ->
         $routeProvider.when '/available',
           templateUrl: 'partials/available.html'
-          controller: 'Controller.AvailableController'
+          controller: 'AvailableController'
 
         $routeProvider.when '/summary',
           templateUrl: 'partials/summary.html'
-          controller: 'Controller.SummaryController'
+          controller: 'SummaryController'
 
         $routeProvider.when '/detail',
           templateUrl: 'partials/detail.html'
-          controller: 'Controller.DetailController'
+          controller: 'DetailController'
 
         $routeProvider.otherwise redirectTo: '/available'
     ]
