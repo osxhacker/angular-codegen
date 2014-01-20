@@ -13,6 +13,15 @@ package com.iteamsolutions.angular.spray
  */
 package object functional
 {
+	object all
+		extends DirectiveImplicits
+			with HListImplicits
+
+	
 	object directives
 		extends DirectiveImplicits
+		
+		
+	object hlist
+		extends HListImplicits
 }

@@ -3,6 +3,12 @@
  */
 package com.iteamsolutions.angular.spray.functional
 
+import scala.language.{
+	higherKinds,
+	implicitConversions,
+	postfixOps
+	}
+
 import scalaz.{
 	Failure => _,
 	Success => _,
@@ -23,25 +29,73 @@ import spray.routing._
 trait DirectiveImplicits
 {
 	/// Class Imports
-	import spray.routing.directives.BasicDirectives._
+	import Leibniz.refl
+	import spray.routing.directives.BasicDirectives.provide
 
 
 	/// Implicit Conversions
-	implicit val directive1Monad : Monad[Directive1] =
-		new Monad[Directive1] {
-            override def point[A] (a : => A) : Directive1[A] = provide (a);
-                
-            override def bind[A, B] (fa : Directive1[A])
-                (f : A => Directive1[B])
-                : Directive1[B] =
-                fa flatMap (f);
-            }
+	implicit val directiveMonad
+		: Monad[({ type l[a] = Directive[a :: HNil] })#l] =
+		new Monad[({ type l[a] = Directive[a :: HNil] })#l] {
+			override def point[A] (a : => A) : Directive[A :: HNil] =
+				provide (a);
+			
+			override def bind[A, B] (fa : Directive[A :: HNil])
+				(f : A => Directive[B :: HNil])
+				: Directive[B :: HNil] =
+				fa.hflatMap (ha => f (ha.head));
+			}
 	
 	
-	implicit def functorToDirective[A, B] (f : A => B) =
+	implicit def unapplyApplicativeDirective[A0]
+		: Unapply[Applicative, Directive[A0 :: HNil]] {
+			type M[X] = Directive[X :: HNil]
+			type A = A0
+			} =
+		new Unapply[Applicative, Directive[A0 :: HNil]] { 
+			type M[X] = Directive[X :: HNil]
+			type A = A0
+
+			def leibniz = refl
+			def TC = directiveMonad
+		}
+
+
+	implicit def unapplyBindDirective[A0]
+		: Unapply[Bind, Directive[A0 :: HNil]] {
+			type M[X] = Directive[X :: HNil]
+			type A = A0
+			} =
+		new Unapply[Bind, Directive[A0 :: HNil]] { 
+			type M[X] = Directive[X :: HNil]
+			type A = A0
+
+			def leibniz = refl
+			def TC = directiveMonad
+		}
+
+
+	implicit def unapplyMonadDirective[A0]
+		: Unapply[Monad, Directive[A0 :: HNil]] {
+			type M[X] = Directive[X :: HNil]
+			type A = A0
+			} =
+		new Unapply[Monad, Directive[A0 :: HNil]] { 
+			type M[X] = Directive[X :: HNil]
+			type A = A0
+
+			def leibniz = refl
+			def TC = directiveMonad
+		}
+
+
+	implicit def functorToDirective[A, B] (f : A => B)
+		: A => Directive[B :: HNil] =
 		f andThen provide;
 	
 	
-	implicit def liftDirective0 (d : Directive0) : Directive1[HNil] =
+	implicit def liftDirective0 (d : Directive[HNil])
+		: Directive[HNil :: HNil] =
 		provide (HNil);
 }
+

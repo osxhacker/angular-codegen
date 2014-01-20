@@ -3,6 +3,12 @@
  */
 package com.iteamsolutions.angular.spray.functional
 
+import scala.language.{
+	higherKinds,
+	implicitConversions,
+	postfixOps
+	}
+
 import scalaz._
 
 import org.junit.runner.RunWith
@@ -26,6 +32,7 @@ import com.iteamsolutions.angular.ProjectSpec
 class ScalazDirectiveSpec
 	extends ProjectSpec
 		with BasicDirectives
+		with PathDirectives
 		with RouteDirectives
 {
 	/// Class Imports
@@ -51,4 +58,17 @@ class ScalazDirectiveSpec
 			Then ("the expression should type check");
             }
         }
+	
+	describe ("Scalaz Bind Directive integration") {
+		it ("should bind to HList-based Directive instances") {
+			Given ("a path matcher");
+			val matcher = path ("foo" / Segment);
+			
+			val route = matcher >>= {
+				theSegment =>
+
+				provide (s"matched on $theSegment");
+				}
+			}
+		}
 }

@@ -21,9 +21,13 @@ import spray.routing._
  */
 class ApplicationHttpService ()
 	extends HttpServiceActor
+		with FeedResources
 		with StaticResources
 {
-	override def receive = runRoute (staticResourcesRoutes);
+	override def receive = runRoute (
+		feedRoutes ~
+		staticResourcesRoutes
+		);
 }
 
 
