@@ -10,19 +10,18 @@
 	<script data-main="js/main.js" src="js/require.js"></script>
 </head>
 <body>
+	<ul class="menu">
+		<li>
+			<a href="#/summary">summary</a>
+		</li>
+	</ul>
+
 	<ng:view>
-		<ul class="menu">
-			<li>
-				<a href="#/summary">summary</a>
-			</li>
-		</ul>
-
-		<div ng-view>
-		</div>
-
-		<div>
-			Angular seed app: v<span app-version></span>
-		</div>
 	</ng:view>
+
+	<div>
+		Angular seed app: v<span app-version></span>
+	</div>
+
 </body>
 </html>
