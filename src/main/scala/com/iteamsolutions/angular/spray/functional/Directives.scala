@@ -92,10 +92,19 @@ trait DirectiveImplicits
 	implicit def functorToDirective[A, B] (f : A => B)
 		: A => Directive[B :: HNil] =
 		f andThen provide;
+}
+
+
+trait DirectiveSyntax
+{
+	/// Class Imports
+	import spray.routing.directives.BasicDirectives.provide
 	
 	
-	implicit def liftDirective0 (d : Directive[HNil])
-		: Directive[HNil :: HNil] =
-		provide (HNil);
+	implicit class RichDirective0 (val d : Directive[HNil])
+	{
+		def lift[A] (implicit M : Monoid[A]) : Directive[A :: HNil] =
+			d hflatMap (_ => provide (M.zero));
+	}
 }
 

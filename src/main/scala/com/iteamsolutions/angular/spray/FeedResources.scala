@@ -15,6 +15,7 @@ import scalaz.{
 	_
 	}
 
+import spray.http.MediaTypes
 import spray.routing.{
 	HttpService,
 	Route
@@ -39,10 +40,13 @@ trait FeedResources
 	
 	/// Class Imports
 	import functional.directives._
+	import functional.syntax.directives._
+	import MediaTypes._
 	import Scalaz._
 	
 	
 	/// Instance Properties
+	val atomResult = respondWithMediaType (`application/atom+xml`).lift[String];
 	val partial = pathPrefix ("partials");
 	val available = partial & path ("available" ~ """\.\w+$""".r);
 	val validateExtension : String => Directive[String :: HNil] = {
@@ -56,8 +60,8 @@ trait FeedResources
 	
 	
 	def feedRoutes : Route =
-		((get & available) >>= validateExtension) {
-			ext =>
+		((get & available) >>= validateExtension >| atomResult) {
+			_ =>
 
             complete ("<tbd>this is a placeholder</tbd>\n");
 			}

@@ -24,4 +24,11 @@ package object functional
 		
 	object hlist
 		extends HListImplicits
+		
+		
+	object syntax
+	{
+		object directives
+			extends DirectiveSyntax
+	}
 }
