@@ -36,7 +36,7 @@ class ScalazDirectiveSpec
 		with RouteDirectives
 {
 	/// Class Imports
-	import syntax.monad._
+	import scalaz.syntax.monad._
 	import directives._
 
 

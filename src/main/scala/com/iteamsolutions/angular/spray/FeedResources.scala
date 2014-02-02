@@ -60,10 +60,10 @@ trait FeedResources
 	
 	
 	def feedRoutes : Route =
-		((get & available) >>= validateExtension >| atomResult) {
-			_ =>
+		((get & available) >>= validateExtension >>= atomResult) {
+			ext =>
 
-            complete ("<tbd>this is a placeholder</tbd>\n");
+            complete (s"<tbd>this is a placeholder for $ext content</tbd>\n");
 			}
 }
 

@@ -103,8 +103,13 @@ trait DirectiveSyntax
 	
 	implicit class RichDirective0 (val d : Directive[HNil])
 	{
-		def lift[A] (implicit M : Monoid[A]) : Directive[A :: HNil] =
-			d hflatMap (_ => provide (M.zero));
+		/**
+		 * The lift method will "promote" `d` to a `Directive[A :: HNil]`
+		 * functor so that `Directive[HNil]` instances can be ''chained'' with
+		 * `Directive1` functors.
+		 */
+		def lift[A] () : A => Directive[A :: HNil] =
+			a => d hflatMap (_ => provide (a));
 	}
 }
 
