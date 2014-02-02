@@ -69,7 +69,7 @@ class DynamicContentGeneratorSpec
                 }
 
 			it ("can generate content without any parameterization") {
-                Given ("an scaml template generator");
+                Given ("a scaml template generator");
                 val generator = DynamicContentGenerator (
                 	"/partials/no_bindings.scaml"
                 	);
@@ -87,6 +87,26 @@ class DynamicContentGeneratorSpec
                     content shouldNot be ('empty);
                     }
                 }
+			
+			it ("can provide the template with run-time parameters") {
+                Given ("a scaml template expecting a parameter");
+                val generator = DynamicContentGenerator (
+                	"/partials/message_binding.scaml"
+                	);
+                
+                When ("asked to generate content based on the template");
+                val result = generator (Map ('message -> "Hello, world!"));
+                
+                Then ("this call should succeed");
+                result shouldBe 'right;
+                
+                result foreach {
+                	content =>
+                	
+                    And ("should have the message provided");
+                    content should include ("Hello, world!");
+                    }
+				}
             }
         }
 }

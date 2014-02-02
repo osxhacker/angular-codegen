@@ -30,8 +30,8 @@ case class DynamicContentGenerator (
 	 * The apply method uses the optional `bindings` to produce content from
 	 * the template resolved at run-time.
 	 */
-	def apply (bindings : Map[String, Any] = Map.empty) : Throwable \/ String =
-		fromTryCatch (engine.layout (name, bindings));
+	def apply (bindings : Map[Symbol, Any] = Map.empty) : Throwable \/ String =
+		fromTryCatch (engine layout (name, bindings mapKeys (_.name)));
 }
 
 
