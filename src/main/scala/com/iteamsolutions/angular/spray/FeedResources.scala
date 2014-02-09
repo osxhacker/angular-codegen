@@ -123,7 +123,9 @@ trait FeedResources
 		(result >>= {
 			feeds =>
 			
-			val generator = DynamicContentGenerator ("/partials/available.scaml");
+			val generator = DynamicContentGenerator (
+				"com/iteamsolutions/angular/partials/available.scaml"
+				);
 			
 			generator (Map ('availableFeeds -> feeds)).toFutureEither;
 			}

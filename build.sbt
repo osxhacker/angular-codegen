@@ -23,6 +23,7 @@ libraryDependencies ++= {
     "io.spray"            %   "spray-routing" % sprayVersion withSources,
     "io.spray"            %   "spray-testkit" % sprayVersion withSources,
 	"org.fusesource.scalate" %% "scalate-core" % "1.6.1" withSources,
+	"org.fusesource.scalate" %% "scalate-util" % "1.6.1" withSources,
     "com.typesafe.akka"   %%  "akka-actor"    % akkaVersion,
     "com.typesafe.akka"   %%  "akka-testkit"  % akkaVersion,
     "org.scalaz"          %%  "scalaz-core"   % "7.0.5" withSources,
@@ -48,7 +49,7 @@ seq(SbtStartScript.startScriptForClassesSettings: _*)
   }
 
 // Scalate Precompilation and Bindings
-scalateTemplateConfig in Compile <<= (sourceDirectory in Compile){ base =>
+scalateTemplateConfig in Compile <<= (sourceDirectory in Compile) { base =>
   Seq(
     TemplateConfig(
       base / "resources" / "partials",

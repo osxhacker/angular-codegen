@@ -40,6 +40,8 @@ object DynamicContentGenerator
 	/// Instance Properties
 	private val engine =
 	{
+		System.setProperty ("scalate.allowCaching", "false");
+
 		/// According to one of the Scalate developers here:
 		///
 		/// https://groups.google.com/d/msg/scalate/ma0WLsc7waI/b8qmopQALXUJ
@@ -49,6 +51,7 @@ object DynamicContentGenerator
 		System.setProperty ("scalate.allowReload", "false");
 
 		val e = new TemplateEngine;
+
 
 		e.boot;
 
