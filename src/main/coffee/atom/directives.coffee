@@ -12,4 +12,5 @@ define (require) ->
   feed: require 'app/directive/feed'
   feeds: require 'app/directive/feeds'
   tbd: require 'app/directive/tbd'
+  title: require 'app/directive/title'
 
