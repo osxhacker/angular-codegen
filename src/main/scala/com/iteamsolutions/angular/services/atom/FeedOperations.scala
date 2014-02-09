@@ -1,15 +1,28 @@
 /**
  * Created on: Dec 7, 2013
  */
-package com.iteamsolutions.angular.services.atom
+package com.iteamsolutions.angular.services
+package atom
+
+import scala.concurrent.{
+	ExecutionContext,
+	Future
+	}
 
 import scalaz.{
 	Failure => _,
 	Success => _,
 	_
 	}
+import scalaz.contrib.std._
 	
+import akka.actor.ActorSystem
+import akka.pattern._
+import akka.util._
+
 import com.iteamsolutions.angular.models.atom._
+
+import actor._
 
 
 /**
@@ -25,28 +38,15 @@ trait FeedOperations
 	import Scalaz._
 	
 	
-	/// Instance Properties
-	private val feeds = 
-		Feed (
-			id = new URI ("urn:atom-feed:1"),
-			authors = NonEmptyList (
-				Author (name = "Test McAuthor")
-				),
-			title = "Stubbed Atom feeds",
-			updated = new Date,
-			link = List.empty,
-			entry = List.empty
-			) ::
-		Nil;
-	
-	
 	/**
 	 * The availableFeeds method resolves what [[models.atom.Feed]]s are
 	 * _currently_ able to be manipulated.
 	 */
-	def availableFeeds () : Throwable \/ List[Feed] =
-	{
-		feeds.right;
-	}
+	def availableFeeds ()
+		(implicit system : ActorSystem, EC : ExecutionContext, T : Timeout)
+		: FutureEither[List[Feed]] =
+		(AvailableFeedsExtension (system) ? CurrentlyAvailableFeedsRequest) >>= {
+			_.result.toFutureEither;
+			}
 }
 

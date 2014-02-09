@@ -20,7 +20,7 @@ requirejs.config
     'angular.route': 'angular/angular-route'
     app: '../atom'
     controller: '../atom/controller'
-    jquery: 'jquery-1.9.0.min'
+    jquery: 'jquery-2.1.0.min'
 
   shim:
     angular:

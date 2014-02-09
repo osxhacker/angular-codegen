@@ -25,9 +25,12 @@ libraryDependencies ++= {
 	"org.fusesource.scalate" %% "scalate-core" % "1.6.1" withSources,
     "com.typesafe.akka"   %%  "akka-actor"    % akkaVersion,
     "com.typesafe.akka"   %%  "akka-testkit"  % akkaVersion,
+    "org.scalaz"          %%  "scalaz-core"   % "7.0.5" withSources,
+    "org.scalaz"          %%  "scalaz-effect" % "7.0.5" withSources,
+	"org.typelevel"       %% "scalaz-contrib-210"  % "0.1.5",
+	"org.typelevel"       %% "scalaz-contrib-validation" % "0.1.5",
 	"junit"               %   "junit"         % "4.11" % "test",
-	"org.scalatest"       %%  "scalatest"     % "2.0" % "test",
-    "org.scalaz"          %%  "scalaz-core"   % "7.0.5" withSources
+	"org.scalatest"       %%  "scalatest"     % "2.0" % "test"
 	)     
 }
 

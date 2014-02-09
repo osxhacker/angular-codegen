@@ -3,10 +3,16 @@
  */
 package com.iteamsolutions.angular.spray
 
+import scala.concurrent.duration._
 import scala.language.{
 	higherKinds,
 	implicitConversions,
 	postfixOps
+	}
+import scala.util.{
+	Failure,
+	Success,
+	Try
 	}
 
 import scalaz.{
@@ -14,8 +20,15 @@ import scalaz.{
 	Success => _,
 	_
 	}
+import scalaz.contrib.std._
 
-import spray.http.MediaTypes
+import akka.util.Timeout
+import spray.http.{
+	MediaTypes,
+	StatusCode,
+	StatusCodes
+	}
+import spray.httpx.marshalling.Marshaller
 import spray.routing.{
 	HttpService,
 	Route
@@ -23,6 +36,12 @@ import spray.routing.{
 
 import shapeless._
 import spray.routing._
+
+import com.iteamsolutions.angular.models.atom.Feed
+import com.iteamsolutions.angular.services._
+
+import atom.FeedOperations
+import scalate.DynamicContentGenerator
 
 
 /**
@@ -33,22 +52,27 @@ import spray.routing._
  *
  */
 trait FeedResources
+	extends FeedOperations
 {
 	/// Self Type Constraints
-	this : HttpService =>
+	this : HttpServiceActor =>
 	
 	
 	/// Class Imports
 	import functional.directives._
 	import functional.syntax.directives._
 	import MediaTypes._
+	import StatusCodes.{
+		Success => _,
+		_
+		}
 	import Scalaz._
 	
 	
 	/// Instance Properties
 	val atomResult = respondWithMediaType (`application/atom+xml`).lift[String];
 	val partial = pathPrefix ("partials");
-	val available = partial & path ("available" ~ """\.\w+$""".r);
+	val availableRequest = get & partial & path ("available" ~ """\.\w+$""".r);
 	val validateExtension : String => Directive[String :: HNil] = {
 		case ".html" =>
 			provide ("html");
@@ -57,13 +81,52 @@ trait FeedResources
 			reject (ValidationRejection ("Unsupported extension"));
 		}
 	
+	private implicit val system = context.system;
+	private implicit val dispatcher = system.dispatcher;
+	private implicit val timeout = Timeout (10 seconds);
+	
 	
 	
 	def feedRoutes : Route =
-		((get & available) >>= validateExtension >>= atomResult) {
-			ext =>
-
-            complete (s"<tbd>this is a placeholder for $ext content</tbd>\n");
+		(
+			availableRequest >>=
+			validateExtension >>=
+			atomResult >>=
+			load >>=
+			render
+		) (completeAs[String] (OK));
+	
+	
+	def completeAs[T : Marshaller] (code : StatusCode)
+		(response : FutureEither[T])
+		: RequestContext => Unit =
+		onComplete (
+			response.fold (
+			e => complete (InternalServerError, e.getMessage),
+			good => complete (code, good)
+			)) {
+			case Success (sr) =>
+				sr;
+				
+			case Failure (e) =>
+				complete (InternalServerError, e.getMessage);
 			}
+		
+
+	private def load (s : String)
+		: Directive[FutureEither[List[Feed]] :: HNil] =
+		availableFeeds ().point[Directive1];
+	
+	
+	private def render (result : FutureEither[List[Feed]])
+		: Directive[FutureEither[String] :: HNil] =
+		(result >>= {
+			feeds =>
+			
+			val generator = DynamicContentGenerator ("/partials/available.scaml");
+			
+			generator (Map ('availableFeeds -> feeds)).toFutureEither;
+			}
+		).point[Directive1];
 }
 
