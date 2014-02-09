@@ -14,6 +14,7 @@ class AvailableController
 define [
   'app/atom.angular'
   'app/modules'
+  'app/directives'
   ],
   (bundled) ->
     bundled.angular

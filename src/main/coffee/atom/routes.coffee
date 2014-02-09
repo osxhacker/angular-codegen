@@ -10,7 +10,6 @@
 define [
   'app/app'
   'controller/AvailableController'
-  'app/directive/tbd'
   ],
   (app) ->
     app.config [ '$routeProvider',
