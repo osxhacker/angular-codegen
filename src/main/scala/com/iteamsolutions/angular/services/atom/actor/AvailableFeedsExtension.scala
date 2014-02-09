@@ -43,24 +43,15 @@ object AvailableFeedsExtension
 	extends ExtensionId[AvailableFeedsExtension]
 		with ExtensionIdProvider
 {
-	/// Class Types
-	private class DefaultAvailableFeedsExtension (
-		override val actor : ActorRef,
-		override val system : ActorSystem
-		)
-		extends MessagingExtension [
-			AvailableFeedsResponse,
-			AvailableFeedsRequest
-			] (actor) (system)
-			with AvailableFeedsExtension
-	
-	
 	override def createExtension (system : ExtendedActorSystem)
 		: AvailableFeedsExtension =
 	{
 		val actor = AvailableFeeds ("available-feeds") (system);
 
-		new DefaultAvailableFeedsExtension (actor, system);
+		new MessagingExtension[AvailableFeedsResponse, AvailableFeedsRequest] (
+			actor
+			) (system)
+			with AvailableFeedsExtension;
 	}
 	
 	

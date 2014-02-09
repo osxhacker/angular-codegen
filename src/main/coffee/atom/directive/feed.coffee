@@ -14,7 +14,7 @@ class AtomFeed
     @scope = {}
 
     # The transclude property must be set to `true` so that the
-    # `controller` method receives the $transclude parameter.
+    # nested elements are retained.
     @transclude = true
 
     @template = """
