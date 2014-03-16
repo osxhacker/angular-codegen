@@ -3,6 +3,7 @@
  */
 package com.iteamsolutions.angular.services
 
+import scala.language.higherKinds
 import scala.reflect.ClassTag
 
 import scalaz.{

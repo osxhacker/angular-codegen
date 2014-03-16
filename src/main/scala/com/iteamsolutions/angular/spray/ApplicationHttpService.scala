@@ -3,10 +3,7 @@
  */
 package com.iteamsolutions.angular.spray
 
-import akka.actor.{
-	IO => _,
-	_
-	}
+import akka.actor._
 import akka.pattern._
 import akka.util._
 import spray.routing._

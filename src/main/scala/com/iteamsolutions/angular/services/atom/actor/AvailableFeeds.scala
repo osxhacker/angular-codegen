@@ -12,10 +12,7 @@ import scalaz.{
 	_
 	}
 
-import akka.actor.{
-	IO => _,
-	_
-	}
+import akka.actor._
 import akka.pattern._
 import akka.util._
 
